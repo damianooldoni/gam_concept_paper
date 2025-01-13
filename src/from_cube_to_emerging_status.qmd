@@ -1,6 +1,10 @@
 ---
 title: "Emerging status determination based on GBIF species occurrence cubes"
 editor: visual
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
 format:
   html:
     df-print: paged
@@ -16,22 +20,18 @@ execute:
   warning: true
   error: false
   include: true
-project:
-  type: website
-  output-dir: docs
-  execute-dir: project
 from: markdown+emoji
 ---
 
 ## Introduction
 
-This document shows an example of how using GBIF species occurence cubes to assess the emerging status of some (alien) species in Europe. This workflow is strongly based on [**occurrence TrIAS indicators**](https://github.com/trias-project/indicators).
+This document shows an example of how using GBIF species occurrence cubes to assess the emerging status of some (alien) species in Europe. This workflow is strongly based on [**occurrence TrIAS indicators**](https://github.com/trias-project/indicators).
 
 ### Setup
 
 First, list and load the needed packages.
 
-```{r pkgs, message: false}
+```{r pkgs, message=FALSE, warning=FALSE}
 library(rgbif)
 library(readr)
 library(dplyr)
@@ -74,9 +74,9 @@ We request a species occurrence cube based on data from **1950**.
 
 ## Species occurrence cube
 
-We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a [JSON query](data/input/query_for_GAM_graphs.json) The [resulting cube](https://doi.org/10.15468/dl.93evf5) (key: `0066568-241126133413365`) is open and can be downloaded in TSV format from GBIF.
+We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a JSON query ([query_for_GAM_graphs.json](../../data/input/query_for_GAM_graphs.json)). The resulting cube (DOI: [10.15468/dl.93evf5](https://doi.org/10.15468/dl.93evf5), downloadKey: `0066568-241126133413365`) can be downloaded in TSV format from GBIF. We have it saved at `data/input` as [`0066568-241126133413365.csv`](../../data/input/0066568-241126133413365.csv):
 
-```{r read-cube, message: false}
+```{r read-cube, message=FALSE}
 cube <- readr::read_tsv(
   here::here(
     "data",
