@@ -100,14 +100,14 @@ We request a species occurrence cube based on data from **1950**.
 
 ## Species occurrence cube
 
-We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a JSON query ([query_for_GAM_graphs.json](../../data/input/query_for_GAM_graphs.json)). The resulting cube (DOI: [10.15468/dl.93evf5](https://doi.org/10.15468/dl.93evf5), downloadKey: `0066568-241126133413365`) can be downloaded in TSV format from GBIF. We have it saved at `data/input` as [`0066568-241126133413365.csv`](../../data/input/0066568-241126133413365.csv):
+We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a JSON query ([query_for_GAM_graphs.json](../../data/input/query_for_GAM_graphs.json)). The resulting cube (DOI: [10.15468/dl.yfwteq](https://doi.org/10.15468/dl.yfwteq), `downloadKey`: `0069550-241126133413365`) can be downloaded in TSV format from GBIF. We have it saved at `data/input` as [`0069550-241126133413365.csv`](../../data/input/0069550-241126133413365.csv):
 
 ```{r read-cube, message=FALSE}
 cube <- readr::read_tsv(
   here::here(
     "data",
     "input",
-    "0066568-241126133413365.csv"
+    "0069550-241126133413365.csv"
   )
 )
 ```
