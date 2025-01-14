@@ -25,7 +25,17 @@
     occurrence
   WHERE 
     occurrenceStatus = 'PRESENT'
-    AND speciesKey IN (2891774, 5217334, 5361762, 5082110)
+    AND speciesKey IN (
+      2891774,
+      5217334,
+      5361762,
+      5082110,
+      5218786,
+      1311477,
+      4532122,
+      1579447,
+      1577153
+    )
     AND continent = 'EUROPE'
     AND \"year\" >= 1950
     AND hasCoordinate = TRUE    

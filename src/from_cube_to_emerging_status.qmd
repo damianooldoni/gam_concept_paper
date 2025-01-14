@@ -52,15 +52,41 @@ Species of interest:
 
 -   [*Myriophyllum heterophyllum*](https://www.gbif.org/species/5361762) ( GBIF key: `5361762`)
 
--   [*Contarinia pseudotsugae*](https://www.gbif.org/species/5082110) ( GBIF key: `5082110`)
+- [*Contarinia pseudotsugae*](https://www.gbif.org/species/5082110) (GBIF key: `5082110`)
+
+- [*Procyon lotor*](https://www.gbif.org/species/5218786) (GBIF key: `5218786`)
+
+- [*Halyomorpha halys*](https://www.gbif.org/species/4485843) (GBIF key: `4485843`)
+
+- [*Vespa velutina*](https://www.gbif.org/species/1311477) (GBIF key: `1311477`)
+
+- [*Cydalima perspectalis*](https://www.gbif.org/species/4532122) (GBIF key: `4532122`)
+
+- [*Exaireta spinigera*](https://www.gbif.org/species/1579447) (GBIF key: `1579447`)
+
+- [*Hermetia illucens*](https://www.gbif.org/species/1577153) (GBIF key: `1577153`)
 
 ```{r define-species-of-interest}
 species <- tibble::tibble(
-  specieskey = c(2891774, 5217334, 5361762, 5082110),
+  specieskey = c(2891774,
+                 5217334,
+                 5361762,
+                 5082110, 
+                 5218786,
+                 1311477,
+                 4532122,
+                 1579447,
+                 1577153),
   canonical_name = c("Impatiens capensis",
                      "Xenopus laevis",
                      "Myriophyllum heterophyllum",
-                     "Contarinia pseudotsugae")
+                     "Contarinia pseudotsugae",
+                     "Procyon lotor",
+                     "Halyomorpha halys",
+                     "Vespa velutina",
+                     "Cydalima perspectalis",
+                     "Exaireta spinigera",
+                     "Hermetia illucens")
 )
 ```
 
