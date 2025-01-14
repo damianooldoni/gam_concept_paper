@@ -46,3 +46,6 @@ po/*~
 rsconnect/
 
 /.quarto/
+
+# Time series (interim file)
+/data/interim/time_series.tsv
