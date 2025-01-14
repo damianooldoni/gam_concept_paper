@@ -45,11 +45,11 @@ library(tibble)
 
 Species of interest:
 
--   [I*mpatiens capensis*](https://www.gbif.org/species/2891774) ( GBIF key: `2891774`)
+- [*Impatiens capensis*](https://www.gbif.org/species/2891774) (GBIF key: `2891774`)
 
--   [*Xenopus laevis*](https://www.gbif.org/species/5217334) ( GBIF key: `5217334`)
+- [*Xenopus laevis*](https://www.gbif.org/species/5217334) (GBIF key: `5217334`)
 
--   [*Myriophyllum heterophyllum*](https://www.gbif.org/species/5361762) ( GBIF key: `5361762`)
+- [*Myriophyllum heterophyllum*](https://www.gbif.org/species/5361762) (GBIF key: `5361762`)
 
 - [*Contarinia pseudotsugae*](https://www.gbif.org/species/5082110) (GBIF key: `5082110`)
 
