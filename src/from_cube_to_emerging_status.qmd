@@ -32,7 +32,6 @@ This document shows an example of how using GBIF species occurrence cubes to ass
 First, list and load the needed packages.
 
 ```{r pkgs, message=FALSE, warning=FALSE}
-library(rgbif)
 library(readr)
 library(dplyr)
 library(tidyr)
