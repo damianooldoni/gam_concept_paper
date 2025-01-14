@@ -163,7 +163,7 @@ head(df_cc)
 For each cell (`eeacellcode`) and species (`specieskey`) we can now create a time series:
 
 ```{r}
-# Define help fuction
+# Define help function
 make_time_series <- function(eeacellcode, specieskey, begin_year, last_year) {
   tidyr::expand_grid(
     eeacellcode = eeacellcode,
