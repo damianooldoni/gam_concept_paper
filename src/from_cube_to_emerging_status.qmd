@@ -300,16 +300,25 @@ gam_ncells <- purrr::map2(
 names(gam_ncells) <- species$canonical_name
 ```
 
-Let's arrange the four GAM plots in a 2x5 grid. First, for the number of occurrences:
+### Plots
+
+Please go to [`./data/output/GAM_outputs`](https://github.com/damianooldoni/gam_concept_paper/tree/main/data/output/GAM_outputs) to get a look to the plots.
+
+For the paper, we need to arrange them in a grid. Of course now we have too many plots. So, let's show just four GAM plots in a 2x2 grid. First, for the number of occurrences:
 
 ```{r grid_occs}
 grid_occs <- purrr::map(
-  gam_occs,
+  list(gam_occs$`Impatiens capensis`,
+       gam_occs$`Myriophyllum heterophyllum`,
+       gam_occs$`Procyon lotor`,
+       gam_occs$`Vespa velutina`),
   function(x) {
     x$plot
   }
 ) |>
-  patchwork::wrap_plots(ncol = 5)
+  # Unify legends
+  patchwork::wrap_plots(ncol = 2) |>
+  patchwork::plot_layout(guides = "collect")
 grid_occs
 ```
 
@@ -317,11 +326,14 @@ Second, for the number of occupied cells (measured occupancy):
 
 ```{r grid_ncells}
 grid_ncells <- purrr::map(
-  gam_ncells,
+  list(gam_ncells$`Impatiens capensis`,
+       gam_ncells$`Myriophyllum heterophyllum`,
+       gam_ncells$`Procyon lotor`,
+       gam_ncells$`Vespa velutina`),
   function(x) {
     x$plot
   }
 ) |>
-  patchwork::wrap_plots(ncol = 5)
+  patchwork::wrap_plots(ncol = 2)
 grid_ncells
 ```
