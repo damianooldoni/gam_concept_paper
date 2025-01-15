@@ -306,7 +306,7 @@ Please go to [`./data/output/GAM_outputs`](https://github.com/damianooldoni/gam_
 
 For the paper, we need to arrange them in a grid. Of course now we have too many plots. So, let's show just four GAM plots in a 2x2 grid. First, for the number of occurrences:
 
-```{r grid_occs}
+```{r grid_occs, results='hide',fig.keep='all'}
 grid_occs <- purrr::map(
   list(gam_occs$`Impatiens capensis`,
        gam_occs$`Myriophyllum heterophyllum`,
@@ -317,14 +317,13 @@ grid_occs <- purrr::map(
   }
 ) |>
   # Unify legends
-  patchwork::wrap_plots(ncol = 2) |>
-  patchwork::plot_layout(guides = "collect")
+  patchwork::wrap_plots(ncol = 2)
 grid_occs
 ```
 
 Second, for the number of occupied cells (measured occupancy):
 
-```{r grid_ncells}
+```{r grid_ncells, results='hide',fig.keep='all'}
 grid_ncells <- purrr::map(
   list(gam_ncells$`Impatiens capensis`,
        gam_ncells$`Myriophyllum heterophyllum`,
