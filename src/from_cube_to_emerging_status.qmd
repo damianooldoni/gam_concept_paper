@@ -387,18 +387,25 @@ species_to_show <- c("Impatiens capensis",
                      "Myriophyllum heterophyllum",
                      "Procyon lotor",
                      "Fagus sylvatica")
+# Extract list elements for the species to show (number of occurrences)
+gam_occs_to_show <- purrr::map(species_to_show, ~gam_occs[[.x]])
+names(gam_occs_to_show) <- species_to_show
+# Extract list elements for the species to show (occupancy)
+gam_ncells_to_show <- purrr::map(species_to_show, ~gam_ncells[[.x]])
+names(gam_ncells_to_show) <- species_to_show
 ```
 
 #### Non uniform axis
 
-We show and save the grid for number of occurrences (filename `occurrences_non_uniform_axis.png`:
+We show and save the grid for number of occurrences (filename `occurrences_non_uniform_axis.png`):
 
 ```{r grid_occs}
-grid_occs <- purrr::map(
-  species_to_show,
-  function(x) {
-    # Reduce title of the plot objects to species only
-    gam_occs[[x]]$plot + ggplot2::ggtitle(label = x)
+grid_occs <- purrr::imap(gam_occs_to_show, function(x, y) {
+  # Reduce title of the plot objects to species only
+  x$plot <- x$plot + ggplot2::ggtitle(label = y)
+  # Change size of the title
+  x$plot <- x$plot + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))
   }) |>
   patchwork::wrap_plots(nrow = 2, ncol = 2) +
   # Unify legends
@@ -414,19 +421,20 @@ ggplot2::ggsave(
   plot = grid_occs,
   width = plot_dimensions$width,
   height = plot_dimensions$height,
-  units = "px"
+  units = "px",
+  dpi = 300
 )
 ```
 
 We show and save the grid for the number of occupied cells (measured occupancy):
 
 ```{r grid_ncells}
-grid_ncells <- purrr::map(
-  species_to_show,
-  function(x) {
-    # Reduce title of the plot objects to species only
-    gam_ncells[[x]]$plot <- gam_ncells[[x]]$plot + ggplot2::ggtitle(label = x)
-    gam_ncells[[x]]$plot
+grid_ncells <- purrr::imap(gam_ncells_to_show, function(x, y) {
+  # Reduce title of the plot objects to species only
+  x$plot <- x$plot + ggplot2::ggtitle(label = y)
+  # Change size of the title
+  x$plot <- x$plot + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))
   }) |>
   patchwork::wrap_plots(nrow = 2, ncol = 2) +
   # Unify legends
@@ -442,7 +450,8 @@ ggplot2::ggsave(
   plot = grid_ncells,
   width = plot_dimensions$width,
   height = plot_dimensions$height,
-  units = "px"
+  units = "px",
+  dpi = 300
 )
 ```
 
@@ -453,9 +462,6 @@ We show and save plots using the same axis limits (x, y) for all species.
 Number of occurrences:
 
 ```{r uniform_scales}
-# Extract list elements for the species to show
-gam_occs_to_show <- purrr::map(species_to_show, ~gam_occs[[.x]])
-names(gam_occs_to_show) <- species_to_show
 # Get the maximum value of y axis (occs) among all plots
 max_y_occs <- max(
   purrr::map_dbl(species_to_show, function(x) {
@@ -463,33 +469,41 @@ max_y_occs <- max(
   })
 )
 # Get minimum value of x axis (year) among all plots
-min_x_occs <- min(
+min_x_year <- min(
   purrr::map_dbl(species_to_show, function(x) {
-  max(gam_occs_to_show[[x]]$plot$data$year)
+  min(gam_occs_to_show[[x]]$plot$data$year)
   })
 )
 
 # Set same scales (x,y axis)
-purrr::iwalk(gam_occs_to_show, function(x, y) {
+grid_occs_uniform <- purrr::imap(gam_occs_to_show, function(x, y) {
   x$plot <- x$plot + 
-    ggplot2::coord_cartesian(xlim = c(min_x_occs, 2023), ylim = c(0, max_y_occs))
+    ggplot2::coord_cartesian(xlim = c(min_x_year, 2023),
+                             ylim = c(0, max_y_occs))
   # Reduce title of the plot objects to species only
   x$plot <- x$plot + ggplot2::ggtitle(label = y)
-  # Save
-  ggplot2::ggsave(
-    filename = here::here(
-      "data",
-      "output",
-      "GAM_outputs",
-      "grid",
-      paste0(y, "_occurrences_short_title_uniform_axis.png")),
-    plot = x$plot,
-    width = plot_dimensions$width,
-    height = plot_dimensions$height,
-    units = "px"
-  )
-  print(x$plot)
-})
+  # Change size of the title
+  x$plot <- x$plot + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))
+}) |>
+  patchwork::wrap_plots(nrow = 2, ncol = 2) +
+  # Unify legends
+  patchwork::plot_layout(guides = 'collect')
+grid_occs_uniform
+# Save
+ggplot2::ggsave(
+  filename = here::here(
+    "data",
+    "output",
+    "GAM_outputs",
+    "grid",
+    "occurrences_short_title_uniform_axis.png"),
+  plot = grid_occs_uniform,
+  width = plot_dimensions$width,
+  height = plot_dimensions$height,
+  units = "px",
+  dpi = 300
+)
 ```
 
 #### Occupancy
@@ -497,9 +511,6 @@ purrr::iwalk(gam_occs_to_show, function(x, y) {
 We do the same for the number of occupied cells (measured occupancy):
 
 ```{r uniform_scales_ncells}
-# Extract list elements for the species to show
-gam_ncells_to_show <- purrr::map(species_to_show, ~gam_ncells[[.x]])
-names(gam_ncells_to_show) <- species_to_show
 # Get the maximum value of y axis (ncells) among all plots
 max_y_ncells <- max(
   purrr::map_dbl(species_to_show, function(x) {
@@ -507,34 +518,42 @@ max_y_ncells <- max(
   })
 )
 # Get minimum value of x axis (year) among all plots
-min_x_ncells <- min(
+min_x_year <- min(
   purrr::map_dbl(species_to_show, function(x) {
-  max(gam_ncells_to_show[[x]]$plot$data$year)
+  min(gam_ncells_to_show[[x]]$plot$data$year)
   })
 )
-
 # Set same scales (x,y axis)
-purrr::iwalk(gam_ncells_to_show, function(x, y) {
+grid_ncells_uniform <- purrr::imap(gam_ncells_to_show, function(x, y) {
+  # Adjust range x and y axis
   x$plot <- x$plot + 
-    ggplot2::coord_cartesian(xlim = c(min_x_ncells, 2023),
-                             ylim = c(0, max_y_ncells)
+    ggplot2::coord_cartesian(
+      xlim = c(min_x_year, 2023),
+      ylim = c(0, max_y_ncells)
   )
   # Reduce title of the plot objects to species only
   x$plot <- x$plot + ggplot2::ggtitle(label = y)
-  # Save
-  ggplot2::ggsave(
-    filename = here::here(
-      "data",
-      "output",
-      "GAM_outputs",
-      "grid",
-      paste0(y, "_occupancy_short_title_uniform_axis.png")
-    ),
-    plot = x$plot,
-    width = plot_dimensions$width,
-    height = plot_dimensions$height,
-    units = "px"
-  )
-  print(x$plot)
-})
+  # Change size of the title
+  x$plot <- x$plot + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))
+})  |>
+  patchwork::wrap_plots(nrow = 2, ncol = 2) +
+  # Unify legends
+  patchwork::plot_layout(guides = 'collect')
+grid_ncells_uniform
+# Save
+ggplot2::ggsave(
+  filename = here::here(
+    "data",
+    "output",
+    "GAM_outputs",
+    "grid",
+    "occupancy_short_title_uniform_axis.png"
+  ),
+  plot = grid_ncells_uniform,
+  width = plot_dimensions$width,
+  height = plot_dimensions$height,
+  units = "px",
+  dpi = 300
+)
 ```
