@@ -151,7 +151,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#non-uniform-axis" id="toc-non-uniform-axis" class="nav-link" data-scroll-target="#non-uniform-axis"><span class="header-section-number">5.3.1</span> Non uniform axis</a></li>
   <li><a href="#uniform-axis" id="toc-uniform-axis" class="nav-link" data-scroll-target="#uniform-axis"><span class="header-section-number">5.3.2</span> Uniform axis</a></li>
-  <li><a href="#occupancy-2" id="toc-occupancy-2" class="nav-link" data-scroll-target="#occupancy-2"><span class="header-section-number">5.3.3</span> Occupancy</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -215,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><a href="https://www.gbif.org/species/4532122"><em>Cydalima perspectalis</em></a> (GBIF key: <code>4532122</code>)</p></li>
 <li><p><a href="https://www.gbif.org/species/1579447"><em>Exaireta spinigera</em></a> (GBIF key: <code>1579447</code>)</p></li>
 <li><p><a href="https://www.gbif.org/species/1577153"><em>Hermetia illucens</em></a> (GBIF key: <code>1577153</code>)</p></li>
-<li><p><a href="https://www.gbif.org/species/2882316"><em>Fagus sylvatica</em></a></p></li>
+<li><p><a href="https://www.gbif.org/species/2882316"><em>Fagus sylvatica</em></a> (GBIF key: <code>2882316</code>)</p></li>
 </ul>
 <div class="cell">
 <details class="code-fold">
@@ -1042,9 +1041,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="occupancy-2" class="level4" data-number="5.3.3">
-<h4 data-number="5.3.3" class="anchored" data-anchor-id="occupancy-2"><span class="header-section-number">5.3.3</span> Occupancy</h4>
 <p>We do the same for the number of occupied cells (measured occupancy):</p>
 <div class="cell">
 <details class="code-fold">
@@ -1655,7 +1651,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">*Hermetia illucens*</span><span class="co">](https://www.gbif.org/species/1577153)</span> (GBIF key: <span class="in">`1577153`</span>)</span>
 <span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">*Fagus sylvatica*</span><span class="co">](https://www.gbif.org/species/2882316)</span></span>
+<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">*Fagus sylvatica*</span><span class="co">](https://www.gbif.org/species/2882316)</span> (GBIF key: <span class="in">`2882316`</span>)</span>
 <span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r define-species-of-interest}</span></span>
 <span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a><span class="in">species &lt;- tibble::tibble(</span></span>
@@ -2094,57 +2090,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb32-526"><a href="#cb32-526" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
 <span id="cb32-527"><a href="#cb32-527" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb32-528"><a href="#cb32-528" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-529"><a href="#cb32-529" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Occupancy</span></span>
+<span id="cb32-529"><a href="#cb32-529" aria-hidden="true" tabindex="-1"></a>We do the same for the number of occupied cells (measured occupancy):</span>
 <span id="cb32-530"><a href="#cb32-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-531"><a href="#cb32-531" aria-hidden="true" tabindex="-1"></a>We do the same for the number of occupied cells (measured occupancy):</span>
-<span id="cb32-532"><a href="#cb32-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-533"><a href="#cb32-533" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uniform_scales_ncells}</span></span>
-<span id="cb32-534"><a href="#cb32-534" aria-hidden="true" tabindex="-1"></a><span class="in"># Get the maximum value of y axis (ncells) among all plots</span></span>
-<span id="cb32-535"><a href="#cb32-535" aria-hidden="true" tabindex="-1"></a><span class="in">max_y_ncells &lt;- max(</span></span>
-<span id="cb32-536"><a href="#cb32-536" aria-hidden="true" tabindex="-1"></a><span class="in">  purrr::map_dbl(species_to_show, function(x) {</span></span>
-<span id="cb32-537"><a href="#cb32-537" aria-hidden="true" tabindex="-1"></a><span class="in">  max(gam_ncells_to_show[[x]]$plot$data$ncells)</span></span>
-<span id="cb32-538"><a href="#cb32-538" aria-hidden="true" tabindex="-1"></a><span class="in">  })</span></span>
-<span id="cb32-539"><a href="#cb32-539" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb32-540"><a href="#cb32-540" aria-hidden="true" tabindex="-1"></a><span class="in"># Get minimum value of x axis (year) among all plots</span></span>
-<span id="cb32-541"><a href="#cb32-541" aria-hidden="true" tabindex="-1"></a><span class="in">min_x_year &lt;- min(</span></span>
-<span id="cb32-542"><a href="#cb32-542" aria-hidden="true" tabindex="-1"></a><span class="in">  purrr::map_dbl(species_to_show, function(x) {</span></span>
-<span id="cb32-543"><a href="#cb32-543" aria-hidden="true" tabindex="-1"></a><span class="in">  min(gam_ncells_to_show[[x]]$plot$data$year)</span></span>
-<span id="cb32-544"><a href="#cb32-544" aria-hidden="true" tabindex="-1"></a><span class="in">  })</span></span>
-<span id="cb32-545"><a href="#cb32-545" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb32-546"><a href="#cb32-546" aria-hidden="true" tabindex="-1"></a><span class="in"># Set same scales (x,y axis)</span></span>
-<span id="cb32-547"><a href="#cb32-547" aria-hidden="true" tabindex="-1"></a><span class="in">grid_ncells_uniform &lt;- purrr::imap(gam_ncells_to_show, function(x, y) {</span></span>
-<span id="cb32-548"><a href="#cb32-548" aria-hidden="true" tabindex="-1"></a><span class="in">  # Adjust range x and y axis</span></span>
-<span id="cb32-549"><a href="#cb32-549" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + </span></span>
-<span id="cb32-550"><a href="#cb32-550" aria-hidden="true" tabindex="-1"></a><span class="in">    ggplot2::coord_cartesian(</span></span>
-<span id="cb32-551"><a href="#cb32-551" aria-hidden="true" tabindex="-1"></a><span class="in">      xlim = c(min_x_year, 2023),</span></span>
-<span id="cb32-552"><a href="#cb32-552" aria-hidden="true" tabindex="-1"></a><span class="in">      ylim = c(0, max_y_ncells)</span></span>
-<span id="cb32-553"><a href="#cb32-553" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb32-554"><a href="#cb32-554" aria-hidden="true" tabindex="-1"></a><span class="in">  # Reduce title of the plot objects to species only</span></span>
-<span id="cb32-555"><a href="#cb32-555" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + ggplot2::ggtitle(label = y)</span></span>
-<span id="cb32-556"><a href="#cb32-556" aria-hidden="true" tabindex="-1"></a><span class="in">  # Change size of the title</span></span>
-<span id="cb32-557"><a href="#cb32-557" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + </span></span>
-<span id="cb32-558"><a href="#cb32-558" aria-hidden="true" tabindex="-1"></a><span class="in">    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))</span></span>
-<span id="cb32-559"><a href="#cb32-559" aria-hidden="true" tabindex="-1"></a><span class="in">})  |&gt;</span></span>
-<span id="cb32-560"><a href="#cb32-560" aria-hidden="true" tabindex="-1"></a><span class="in">  patchwork::wrap_plots(nrow = 2, ncol = 2) +</span></span>
-<span id="cb32-561"><a href="#cb32-561" aria-hidden="true" tabindex="-1"></a><span class="in">  # Unify legends</span></span>
-<span id="cb32-562"><a href="#cb32-562" aria-hidden="true" tabindex="-1"></a><span class="in">  patchwork::plot_layout(guides = 'collect')</span></span>
-<span id="cb32-563"><a href="#cb32-563" aria-hidden="true" tabindex="-1"></a><span class="in">grid_ncells_uniform</span></span>
-<span id="cb32-564"><a href="#cb32-564" aria-hidden="true" tabindex="-1"></a><span class="in"># Save</span></span>
-<span id="cb32-565"><a href="#cb32-565" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot2::ggsave(</span></span>
-<span id="cb32-566"><a href="#cb32-566" aria-hidden="true" tabindex="-1"></a><span class="in">  filename = here::here(</span></span>
-<span id="cb32-567"><a href="#cb32-567" aria-hidden="true" tabindex="-1"></a><span class="in">    "data",</span></span>
-<span id="cb32-568"><a href="#cb32-568" aria-hidden="true" tabindex="-1"></a><span class="in">    "output",</span></span>
-<span id="cb32-569"><a href="#cb32-569" aria-hidden="true" tabindex="-1"></a><span class="in">    "GAM_outputs",</span></span>
-<span id="cb32-570"><a href="#cb32-570" aria-hidden="true" tabindex="-1"></a><span class="in">    "grid",</span></span>
-<span id="cb32-571"><a href="#cb32-571" aria-hidden="true" tabindex="-1"></a><span class="in">    "occupancy_short_title_uniform_axis.png"</span></span>
-<span id="cb32-572"><a href="#cb32-572" aria-hidden="true" tabindex="-1"></a><span class="in">  ),</span></span>
-<span id="cb32-573"><a href="#cb32-573" aria-hidden="true" tabindex="-1"></a><span class="in">  plot = grid_ncells_uniform,</span></span>
-<span id="cb32-574"><a href="#cb32-574" aria-hidden="true" tabindex="-1"></a><span class="in">  width = plot_dimensions$width,</span></span>
-<span id="cb32-575"><a href="#cb32-575" aria-hidden="true" tabindex="-1"></a><span class="in">  height = plot_dimensions$height,</span></span>
-<span id="cb32-576"><a href="#cb32-576" aria-hidden="true" tabindex="-1"></a><span class="in">  units = "px",</span></span>
-<span id="cb32-577"><a href="#cb32-577" aria-hidden="true" tabindex="-1"></a><span class="in">  dpi = 300</span></span>
-<span id="cb32-578"><a href="#cb32-578" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb32-579"><a href="#cb32-579" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb32-531"><a href="#cb32-531" aria-hidden="true" tabindex="-1"></a><span class="in">```{r uniform_scales_ncells}</span></span>
+<span id="cb32-532"><a href="#cb32-532" aria-hidden="true" tabindex="-1"></a><span class="in"># Get the maximum value of y axis (ncells) among all plots</span></span>
+<span id="cb32-533"><a href="#cb32-533" aria-hidden="true" tabindex="-1"></a><span class="in">max_y_ncells &lt;- max(</span></span>
+<span id="cb32-534"><a href="#cb32-534" aria-hidden="true" tabindex="-1"></a><span class="in">  purrr::map_dbl(species_to_show, function(x) {</span></span>
+<span id="cb32-535"><a href="#cb32-535" aria-hidden="true" tabindex="-1"></a><span class="in">  max(gam_ncells_to_show[[x]]$plot$data$ncells)</span></span>
+<span id="cb32-536"><a href="#cb32-536" aria-hidden="true" tabindex="-1"></a><span class="in">  })</span></span>
+<span id="cb32-537"><a href="#cb32-537" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb32-538"><a href="#cb32-538" aria-hidden="true" tabindex="-1"></a><span class="in"># Get minimum value of x axis (year) among all plots</span></span>
+<span id="cb32-539"><a href="#cb32-539" aria-hidden="true" tabindex="-1"></a><span class="in">min_x_year &lt;- min(</span></span>
+<span id="cb32-540"><a href="#cb32-540" aria-hidden="true" tabindex="-1"></a><span class="in">  purrr::map_dbl(species_to_show, function(x) {</span></span>
+<span id="cb32-541"><a href="#cb32-541" aria-hidden="true" tabindex="-1"></a><span class="in">  min(gam_ncells_to_show[[x]]$plot$data$year)</span></span>
+<span id="cb32-542"><a href="#cb32-542" aria-hidden="true" tabindex="-1"></a><span class="in">  })</span></span>
+<span id="cb32-543"><a href="#cb32-543" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb32-544"><a href="#cb32-544" aria-hidden="true" tabindex="-1"></a><span class="in"># Set same scales (x,y axis)</span></span>
+<span id="cb32-545"><a href="#cb32-545" aria-hidden="true" tabindex="-1"></a><span class="in">grid_ncells_uniform &lt;- purrr::imap(gam_ncells_to_show, function(x, y) {</span></span>
+<span id="cb32-546"><a href="#cb32-546" aria-hidden="true" tabindex="-1"></a><span class="in">  # Adjust range x and y axis</span></span>
+<span id="cb32-547"><a href="#cb32-547" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + </span></span>
+<span id="cb32-548"><a href="#cb32-548" aria-hidden="true" tabindex="-1"></a><span class="in">    ggplot2::coord_cartesian(</span></span>
+<span id="cb32-549"><a href="#cb32-549" aria-hidden="true" tabindex="-1"></a><span class="in">      xlim = c(min_x_year, 2023),</span></span>
+<span id="cb32-550"><a href="#cb32-550" aria-hidden="true" tabindex="-1"></a><span class="in">      ylim = c(0, max_y_ncells)</span></span>
+<span id="cb32-551"><a href="#cb32-551" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb32-552"><a href="#cb32-552" aria-hidden="true" tabindex="-1"></a><span class="in">  # Reduce title of the plot objects to species only</span></span>
+<span id="cb32-553"><a href="#cb32-553" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + ggplot2::ggtitle(label = y)</span></span>
+<span id="cb32-554"><a href="#cb32-554" aria-hidden="true" tabindex="-1"></a><span class="in">  # Change size of the title</span></span>
+<span id="cb32-555"><a href="#cb32-555" aria-hidden="true" tabindex="-1"></a><span class="in">  x$plot &lt;- x$plot + </span></span>
+<span id="cb32-556"><a href="#cb32-556" aria-hidden="true" tabindex="-1"></a><span class="in">    ggplot2::theme(plot.title = ggplot2::element_text(size = 12))</span></span>
+<span id="cb32-557"><a href="#cb32-557" aria-hidden="true" tabindex="-1"></a><span class="in">})  |&gt;</span></span>
+<span id="cb32-558"><a href="#cb32-558" aria-hidden="true" tabindex="-1"></a><span class="in">  patchwork::wrap_plots(nrow = 2, ncol = 2) +</span></span>
+<span id="cb32-559"><a href="#cb32-559" aria-hidden="true" tabindex="-1"></a><span class="in">  # Unify legends</span></span>
+<span id="cb32-560"><a href="#cb32-560" aria-hidden="true" tabindex="-1"></a><span class="in">  patchwork::plot_layout(guides = 'collect')</span></span>
+<span id="cb32-561"><a href="#cb32-561" aria-hidden="true" tabindex="-1"></a><span class="in">grid_ncells_uniform</span></span>
+<span id="cb32-562"><a href="#cb32-562" aria-hidden="true" tabindex="-1"></a><span class="in"># Save</span></span>
+<span id="cb32-563"><a href="#cb32-563" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot2::ggsave(</span></span>
+<span id="cb32-564"><a href="#cb32-564" aria-hidden="true" tabindex="-1"></a><span class="in">  filename = here::here(</span></span>
+<span id="cb32-565"><a href="#cb32-565" aria-hidden="true" tabindex="-1"></a><span class="in">    "data",</span></span>
+<span id="cb32-566"><a href="#cb32-566" aria-hidden="true" tabindex="-1"></a><span class="in">    "output",</span></span>
+<span id="cb32-567"><a href="#cb32-567" aria-hidden="true" tabindex="-1"></a><span class="in">    "GAM_outputs",</span></span>
+<span id="cb32-568"><a href="#cb32-568" aria-hidden="true" tabindex="-1"></a><span class="in">    "grid",</span></span>
+<span id="cb32-569"><a href="#cb32-569" aria-hidden="true" tabindex="-1"></a><span class="in">    "occupancy_short_title_uniform_axis.png"</span></span>
+<span id="cb32-570"><a href="#cb32-570" aria-hidden="true" tabindex="-1"></a><span class="in">  ),</span></span>
+<span id="cb32-571"><a href="#cb32-571" aria-hidden="true" tabindex="-1"></a><span class="in">  plot = grid_ncells_uniform,</span></span>
+<span id="cb32-572"><a href="#cb32-572" aria-hidden="true" tabindex="-1"></a><span class="in">  width = plot_dimensions$width,</span></span>
+<span id="cb32-573"><a href="#cb32-573" aria-hidden="true" tabindex="-1"></a><span class="in">  height = plot_dimensions$height,</span></span>
+<span id="cb32-574"><a href="#cb32-574" aria-hidden="true" tabindex="-1"></a><span class="in">  units = "px",</span></span>
+<span id="cb32-575"><a href="#cb32-575" aria-hidden="true" tabindex="-1"></a><span class="in">  dpi = 300</span></span>
+<span id="cb32-576"><a href="#cb32-576" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb32-577"><a href="#cb32-577" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

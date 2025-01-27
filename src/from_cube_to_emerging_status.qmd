@@ -67,7 +67,7 @@ Species of interest:
 
 - [*Hermetia illucens*](https://www.gbif.org/species/1577153) (GBIF key: `1577153`)
 
-- [*Fagus sylvatica*](https://www.gbif.org/species/2882316)
+- [*Fagus sylvatica*](https://www.gbif.org/species/2882316) (GBIF key: `2882316`)
 
 ```{r define-species-of-interest}
 species <- tibble::tibble(
@@ -505,8 +505,6 @@ ggplot2::ggsave(
   dpi = 300
 )
 ```
-
-#### Occupancy
 
 We do the same for the number of occupied cells (measured occupancy):
 
