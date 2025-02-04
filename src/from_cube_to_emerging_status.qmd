@@ -106,7 +106,7 @@ We request a species occurrence cube based on data from **1950**.
 
 ## Species occurrence cube
 
-We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a JSON query ([query_for_GAM_graphs.json](../../data/input/query_for_GAM_graphs.json)). The resulting cube (DOI: [10.15468/dl.nsa8b3](https://doi.org/10.15468/dl.nsa8b3), `downloadKey`: `0001083-250121130708018`) can be downloaded in TSV format from GBIF. We have it saved at `data/input` as [`0001083-250121130708018.csv`](../../data/input/0001083-250121130708018):
+We triggered a GBIF occurrence cube via the [Occurrence SQL Download API](https://techdocs.gbif.org/en/data-use/api-sql-downloads) and on the hand of a JSON query ([query_for_GAM_graphs.json](../../data/input/query_for_GAM_graphs.json)). The resulting cube (DOI: [10.15468/dl.nsa8b3](https://doi.org/10.15468/dl.nsa8b3), `downloadKey`: `0001083-250121130708018`) can be downloaded in TSV format from GBIF. We have it saved at `data/input` as [`0001083-250121130708018.csv`](../../data/input/0001083-250121130708018.csv):
 
 ```{r read-cube, message=FALSE}
 cube <- readr::read_tsv(
